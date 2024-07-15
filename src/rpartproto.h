@@ -60,7 +60,7 @@ void graycode_init1(
 void graycode_init2(
     int numcat, int *count, double *val);
 
-int graycode();
+int graycode(void);
 
 struct split* insert_split(
     struct split **listhead, int ncat, double improve, int max);

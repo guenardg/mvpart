@@ -46,6 +46,11 @@
 # define _POSIX_C_SOURCE 200809L
 #endif
 
+/*
+ * Prototype for the split initialization functions:
+ * [name]init(int,double**,int,char**,double*,int*,int,double*)
+ */
+
 extern int anovainit(
     int n, double *y[], int maxcat, char **error, double *parm, int *size,
     int who, double *wt);
@@ -70,33 +75,16 @@ extern int usersplit_init(
     int n, double *y[], int maxcat, char **error, double *parm, int *size,
     int who, double *wt);
 
-extern void anovass(
-    int n, double *y[], double *value, double *risk, double *wt);
-
-extern void mrtss(
-    int n, double *y[], double *value, double *risk, double *wt);
-
-extern void distss(
-    int n, double *y[], double *value, double *risk, double *wt);
-
-extern void poissondev(
-    int n, double *y[], double *value, double *risk, double *wt);
-
-extern void ginidev(
-    int n, double *y[], double *value, double *risk, double *wt);
-
-extern void usersplit_eval(
-    int n, double *y[], double *value, double *risk, double *wt);
+/*
+ * Prototype for the split choosing functions:
+ * _name_(int,double**,double*,int,int,double*,double*,int*,double,double*)
+ */
 
 extern void anova(
     int n, double *y[], double *x, int nclass, int edge, double *improve,
     double *split, int *csplit, double myrisk, double *wt);
 
 extern void mrt(
-    int n, double *y[], double *x, int nclass, int edge, double *improve,
-    double *split, int *csplit, double myrisk, double *wt);
-
-extern void dist(
     int n, double *y[], double *x, int nclass, int edge, double *improve,
     double *split, int *csplit, double myrisk, double *wt);
 
@@ -108,27 +96,62 @@ extern void gini(
     int n, double *y[], double *x, int nclass, int edge, double *improve,
     double *split, int *csplit, double myrisk, double *wt);
 
+extern void dist(
+    int n, double *y[], double *x, int nclass, int edge, double *improve,
+    double *split, int *csplit, double myrisk, double *wt);
+
 extern void usersplit(
     int n, double *y[], double *x, int nclass, int edge, double *improve,
     double *split, int *csplit, double myrisk, double *wt);
+
+/*
+ * Prototype for the evaluation functions:
+ * [name][ss, dev, or eval](int,double**,double*,double*,double*)
+ */
+
+extern void anovass(
+    int n, double *y[], double *value, double *risk, double *wt);
+
+extern void mrtss(
+    int n, double *y[], double *value, double *risk, double *wt);
+
+extern void poissondev(
+    int n, double *y[], double *value, double *risk, double *wt);
+
+extern void ginidev(
+    int n, double *y[], double *value, double *risk, double *wt);
+
+extern void distss(
+    int n, double *y[], double *value, double *risk, double *wt);
+
+extern void usersplit_eval(
+    int n, double *y[], double *value, double *risk, double *wt);
+
+/*
+ * Prototype for the error functions:
+ * [name]pred(double*,double*)
+ */
 
 extern double anovapred(double *y, double *yhat);
 
 extern double mrtpred(double *y, double *yhat);
 
-extern double distpred(double *y, double *yhat);
+extern double poissonpred(double *y, double *yhat);
 
 extern double ginipred(double *y, double *yhat);
 
-extern double poissonpred(double *y, double *yhat);
+extern double distpred(double *y, double *yhat);
 
 extern double usersplit_pred(double *y, double *yhat);
-    
+
+// The function table:
+
 static struct {
-  int (*init_split)();
-  void (*choose_split)();
-  void (*eval)();
-  double (*error)();
+  int (*init_split)(int,double**,int,char**,double*,int*,int,double*);
+  void (*choose_split)(int,double**,double*,int,int,double*,double*,int*,double,
+        double*);
+  void (*eval)(int,double**,double*,double*,double*);
+  double (*error)(double*,double*);
 } func_table[] =
   {{anovainit,      anova,     anovass,        anovapred},
    {mrtinit,        mrt,       mrtss,          mrtpred},

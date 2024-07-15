@@ -117,7 +117,7 @@ void graycode_init2(
 **  change allegiance.
 ** A value of maxc means that we're done.
 */
-int graycode() {
+int graycode(void) {
   int i;
   
   if(gsave > -2) {  /* ordered data */
