@@ -12,8 +12,8 @@ Author: rpart by Terry M Therneau and Beth Atkinson <atkinson@mayo.edu>,
     <guillaume.guenard@gmail.com> beginning 2024-04-13.
 Maintainer: Guillaume Guénard <guillaume.guenard@gmail.com>
 Description: Performs multivariate regression tree calculations and
-  multivariate partitioning. It features a previous version of function rpart,
-  called rpartmv, that allows one to obtain a multivariate regression tree or
+  multivariate partitioning. It features a previous version of function "rpart",
+  called "rpartmv", that allows one to obtain a multivariate regression tree or
   a distance-based regression tree. These methods had been discarded from the
   current implementation of function rpart from package rpart.
 Depends: R (>= 4.0.0)
