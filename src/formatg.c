@@ -37,10 +37,11 @@
  * *************************************************************************/
 
 #include "rpartS.h"
+
 #ifdef WIN32
 #include <ctype.h>
-#include <cstdio>
 #endif
+
 void formatgC(
     int *n,
     double *x,
@@ -49,12 +50,15 @@ void formatgC(
   
   int i;
   int len;
+  
 #ifdef WIN32
   char *p;
 #endif
+  
   for(i = 0; i < *n; i++) {
     len = strlen(out[i]);
     snprintf(out[i], len, format[i], x[i]);
+    
 #ifdef WIN32
     /* change e+/-00n to e+/-0n etc */
     p = out[i];
@@ -65,5 +69,6 @@ void formatgC(
        p[len - 1] = '\0';
     }
 #endif
+    
   }
 }
