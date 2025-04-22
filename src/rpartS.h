@@ -53,7 +53,7 @@
 #endif
 
 #define time timexxx
-#include "R.h"
+#include <R.h>
 #undef time
 #undef error
 
@@ -66,3 +66,4 @@
 
 #define ALLOC(a,b) S_alloc(a,b)
 #define CALLOC(a,b) R_chk_calloc((size_t)(a), b)
+#define Free(a) R_Free(a)
